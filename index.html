@@ -10,24 +10,13 @@
 
     <header id="cabecalho">
         <div class="logo-faculdade">
-            [Logo da Faculdade]
+            <img src="ifpe.jpeg" alt="Logo da Faculdade">
         </div>
         <h1>Portal Cultural da Bahia</h1>
     </header>
 
     <main id="conteudo-principal">
         
-        <div id="container-mapa">
-            <div id="controles-zoom">
-                <button id="btn-zoom-in" title="Aumentar Zoom">+</button>
-                <button id="btn-zoom-out" title="Diminuir Zoom">-</button>
-            </div>
-
-            <div id="wrapper-mapa">
-                <h2 id="carregando">Buscando malha territorial no IBGE...</h2>
-                </div>
-        </div>
-
         <div id="painel-informacoes">
             <h2>Resumo do Município</h2>
             <p class="subtitulo">Clique no mapa para ver uma prévia.</p>
@@ -37,13 +26,25 @@
                 <p id="regiao-municipio">Mesorregião</p>
                 
                 <p id="cultura-municipio">
-                    </p>
+                </p>
 
                 <button id="btn-pagina-completa" class="btn-primario">
                     Ver Página Completa
                 </button>
             </div>
         </div>
+
+        <div id="container-mapa">
+            <div id="controles-zoom">
+                <button id="btn-zoom-in" title="Aumentar Zoom">+</button>
+                <button id="btn-zoom-out" title="Diminuir Zoom">-</button>
+            </div>
+
+            <div id="wrapper-mapa">
+                <h2 id="carregando">Buscando malha territorial no IBGE...</h2>
+            </div>
+        </div>
+
     </main>
 
     <script src="script.js"></script>

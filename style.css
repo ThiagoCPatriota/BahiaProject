@@ -1,24 +1,127 @@
-/* --- Área do Mapa e Zoom --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f8fafc;
+    overflow: hidden; /* Evita barra de rolagem na página inteira */
+}
+
+/* --- Cabeçalho --- */
+#cabecalho {
+    height: 70px;
+    background-color: #0f172a; /* Cor bem escura */
+    color: white;
+    display: flex;
+    align-items: center; /* Centralizar verticalmente logo e texto */
+    padding: 0 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    position: relative;
+    z-index: 20;
+}
+
+.logo-faculdade {
+    /* Ajustar o container da logo */
+    height: 50px;       /* Altura fixa boa para logos de cabeçalho */
+    margin-right: 20px;
+    display: flex;      /* Centralizar a imagem dentro do container */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Esta é a parte mais importante para a imagem não quebrar o layout */
+.logo-faculdade img {
+    max-height: 100%; /* Escalar a altura para caber no container */
+    max-width: 100%;  /* Garantir que não extrapole a largura do container */
+    object-fit: contain; /* Manter a proporção e não cortar ou esticar */
+}
+
+#cabecalho h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+/* --- Conteúdo Principal (Painel + Mapa) --- */
+#conteudo-principal {
+    display: flex;
+    height: calc(100vh - 70px); /* Ocupa a tela toda menos o cabeçalho */
+}
+
+/* --- Painel de Informações (NA ESQUERDA) --- */
+#painel-informacoes {
+    width: 400px;
+    background: white;
+    padding: 40px 30px;
+    /* Mudamos de -4px para 4px para a sombra projetar para a direita */
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1); 
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    overflow-y: auto;
+}
+
+/* O resto do CSS do painel continua igual */
+.subtitulo {
+    color: #64748b;
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
+#nome-municipio {
+    color: #0f172a;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+#regiao-municipio {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+#cultura-municipio {
+    line-height: 1.6;
+    color: #475569;
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+}
+
+/* Botão para a outra página */
+.btn-primario {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+}
+
+.btn-primario:hover {
+    background-color: #1d4ed8;
+}
+
+.oculto {
+    display: none !important;
+}
+
+/* --- Área do Mapa e Zoom (NA DIREITA) --- */
 #container-mapa {
     flex: 1;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    /* Fundo Tecnológico Escuro */
-    background-color: #0b1120; 
-    /* Criação de uma grade (grid) sutil azulada no fundo */
-    background-image: 
-        linear-gradient(rgba(56, 189, 248, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(56, 189, 248, 0.1) 1px, transparent 1px);
-    background-size: 40px 40px; 
-    
+    background-color: #1e293b; /* Fundo escuro liso */
     overflow: hidden; 
-    cursor: grab; /* Cursor de "mãozinha" aberta */
+    cursor: grab;
 }
 
-/* Quando o usuário clica e segura, a mãozinha fecha */
 #container-mapa:active {
     cursor: grabbing;
 }
@@ -37,9 +140,9 @@
     width: 40px;
     height: 40px;
     font-size: 1.5rem;
-    background-color: #1e293b; /* Botões escuros para combinar */
+    background-color: #334155;
     color: white;
-    border: 1px solid #334155;
+    border: 1px solid #475569;
     border-radius: 8px;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
@@ -47,7 +150,7 @@
 }
 
 #controles-zoom button:hover {
-    background-color: #334155;
+    background-color: #475569;
 }
 
 #wrapper-mapa {
@@ -56,22 +159,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Removemos a transition do transform aqui para o arraste não ficar com "lag" */
 }
 
 svg {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.5)); /* Sombra mais forte pro fundo escuro */
+    filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.5));
 }
 
-/* --- Estilo do Mapa (Branco com borda escura) --- */
+/* --- Estilo do Mapa --- */
 path {
-    fill: #f8fafc;      /* Fundo quase branco */
-    stroke: #0f172a;    /* Borda azul bem escura/preta */
+    fill: #f8fafc;      /* Fundo branco */
+    stroke: #0f172a;    /* Borda escura */
     stroke-width: 0.5;  
-    transition: fill 0.3s ease, transform 0.3s ease; /* Removemos o 'all' para não bugar o arraste */
+    transition: fill 0.3s ease; /* Transição apenas na cor para o arraste ser fluido */
     cursor: pointer;
     transform-box: fill-box;
     transform-origin: center;
+}
+
+path:hover {
+    fill: #fde047; /* Amarelo clarinho no hover */
+}
+
+/* Município selecionado */
+.municipio-ativo {
+    fill: #f59e0b !important; /* Laranja forte */
 }

@@ -8,21 +8,19 @@ const regiaoMunicipioEl = document.getElementById('regiao-municipio');
 const culturaMunicipioEl = document.getElementById('cultura-municipio');
 const btnPaginaCompleta = document.getElementById('btn-pagina-completa');
 
-// Elementos do DOM - Zoom
 const btnZoomIn = document.getElementById('btn-zoom-in');
 const btnZoomOut = document.getElementById('btn-zoom-out');
 
-// Variáveis de Estado da Aplicação
 let municipioSelecionadoId = null;
 
 // Variáveis de Controle de Zoom e Arraste (Pan)
 let nivelZoom = 1;
 let translateX = 0;
 let translateY = 0;
-let isArrastando = false;
+let isMousedown = false;
+let moveuMouse = false; // NOVA LÓGICA: Para diferenciar clique de arraste
 let startX, startY;
 
-// --- 1. LÓGICA DE CARREGAMENTO DO MAPA ---
 async function carregarMapa() {
     try {
         const resposta = await fetch('https://servicodados.ibge.gov.br/api/v3/malhas/estados/BA?formato=image/svg+xml&qualidade=minima&intrarregiao=municipio');
@@ -38,14 +36,13 @@ async function carregarMapa() {
     }
 }
 
-// --- 2. LÓGICA DE CLIQUES NOS MUNICÍPIOS ---
 function configurarInteracoesMapa() {
     const caminhos = document.querySelectorAll('svg path');
     
     caminhos.forEach(caminho => {
         caminho.addEventListener('click', async (e) => {
-            // Evita que um clique simples após um arraste selecione a cidade sem querer
-            if(isArrastando) return;
+            // Se o mouse moveu enquanto estava clicado, foi um arraste, então ignoramos o clique
+            if (moveuMouse) return;
 
             const idMunicipio = caminho.getAttribute('id');
             municipioSelecionadoId = idMunicipio;
@@ -58,7 +55,6 @@ function configurarInteracoesMapa() {
     });
 }
 
-// --- 3. BUSCA DE DADOS (PREVIEW) ---
 async function buscarResumoMunicipio(id) {
     try {
         const resposta = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/municipios/${id}`);
@@ -74,14 +70,11 @@ async function buscarResumoMunicipio(id) {
     }
 }
 
-// --- 4. SISTEMA DE PAN (ARRASTAR) E ZOOM ---
-
-// Função central que aplica as mudanças visuais
+// --- SISTENA DE PAN (ARRASTAR) E ZOOM ---
 function atualizarTransformacao() {
     wrapperMapa.style.transform = `translate(${translateX}px, ${translateY}px) scale(${nivelZoom})`;
 }
 
-// Zoom com os botões
 btnZoomIn.addEventListener('click', () => {
     nivelZoom += 0.3;
     atualizarTransformacao();
@@ -94,48 +87,46 @@ btnZoomOut.addEventListener('click', () => {
     }
 });
 
-// Zoom com a rodinha do mouse (Scroll)
 containerMapa.addEventListener('wheel', (e) => {
-    e.preventDefault(); // Impede a página inteira de rolar
+    e.preventDefault(); 
     const zoomSpeed = 0.1;
     
     if (e.deltaY < 0) {
-        nivelZoom += zoomSpeed; // Rolou pra cima, aproxima
+        nivelZoom += zoomSpeed; 
     } else {
-        nivelZoom = Math.max(0.4, nivelZoom - zoomSpeed); // Rolou pra baixo, afasta (limite de 0.4)
+        nivelZoom = Math.max(0.4, nivelZoom - zoomSpeed); 
     }
     atualizarTransformacao();
 }, { passive: false });
 
-// Lógica de Arrastar (Mousedown, Mousemove, Mouseup)
 containerMapa.addEventListener('mousedown', (e) => {
-    isArrastando = true;
-    // Pega a posição inicial do clique menos o quanto já foi movido antes
+    isMousedown = true;
+    moveuMouse = false; // Reseta a variável de movimento
     startX = e.clientX - translateX;
     startY = e.clientY - translateY;
 });
 
 window.addEventListener('mouseup', () => {
-    isArrastando = false;
+    isMousedown = false;
+    // Usamos um pequeno timeout para dar tempo do evento de clique rodar antes de resetar o movimento
+    setTimeout(() => { moveuMouse = false; }, 50);
 });
 
 containerMapa.addEventListener('mousemove', (e) => {
-    if (!isArrastando) return;
+    if (!isMousedown) return;
     
+    moveuMouse = true; // Confirma que o usuário está arrastando
     e.preventDefault();
-    // Calcula a nova posição baseada no movimento do mouse
     translateX = e.clientX - startX;
     translateY = e.clientY - startY;
     
     atualizarTransformacao();
 });
 
-// --- 5. NAVEGAÇÃO PARA OUTRA PÁGINA ---
 btnPaginaCompleta.addEventListener('click', () => {
     if (municipioSelecionadoId) {
         alert(`Navegando para a página de detalhes do município ID: ${municipioSelecionadoId}`);
     }
 });
 
-// Inicia o projeto
 carregarMapa();
