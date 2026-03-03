@@ -1,0 +1,77 @@
+/* --- Área do Mapa e Zoom --- */
+#container-mapa {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Fundo Tecnológico Escuro */
+    background-color: #0b1120; 
+    /* Criação de uma grade (grid) sutil azulada no fundo */
+    background-image: 
+        linear-gradient(rgba(56, 189, 248, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px; 
+    
+    overflow: hidden; 
+    cursor: grab; /* Cursor de "mãozinha" aberta */
+}
+
+/* Quando o usuário clica e segura, a mãozinha fecha */
+#container-mapa:active {
+    cursor: grabbing;
+}
+
+#controles-zoom {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 15;
+}
+
+#controles-zoom button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    background-color: #1e293b; /* Botões escuros para combinar */
+    color: white;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: background 0.2s;
+}
+
+#controles-zoom button:hover {
+    background-color: #334155;
+}
+
+#wrapper-mapa {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Removemos a transition do transform aqui para o arraste não ficar com "lag" */
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.5)); /* Sombra mais forte pro fundo escuro */
+}
+
+/* --- Estilo do Mapa (Branco com borda escura) --- */
+path {
+    fill: #f8fafc;      /* Fundo quase branco */
+    stroke: #0f172a;    /* Borda azul bem escura/preta */
+    stroke-width: 0.5;  
+    transition: fill 0.3s ease, transform 0.3s ease; /* Removemos o 'all' para não bugar o arraste */
+    cursor: pointer;
+    transform-box: fill-box;
+    transform-origin: center;
+}

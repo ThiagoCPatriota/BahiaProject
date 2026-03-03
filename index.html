@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Bahia - Municípios</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header id="cabecalho">
+        <div class="logo-faculdade">
+            [Logo da Faculdade]
+        </div>
+        <h1>Portal Cultural da Bahia</h1>
+    </header>
+
+    <main id="conteudo-principal">
+        
+        <div id="container-mapa">
+            <div id="controles-zoom">
+                <button id="btn-zoom-in" title="Aumentar Zoom">+</button>
+                <button id="btn-zoom-out" title="Diminuir Zoom">-</button>
+            </div>
+
+            <div id="wrapper-mapa">
+                <h2 id="carregando">Buscando malha territorial no IBGE...</h2>
+                </div>
+        </div>
+
+        <div id="painel-informacoes">
+            <h2>Resumo do Município</h2>
+            <p class="subtitulo">Clique no mapa para ver uma prévia.</p>
+
+            <div id="detalhes-municipio" class="oculto">
+                <h3 id="nome-municipio">Nome do Município</h3>
+                <p id="regiao-municipio">Mesorregião</p>
+                
+                <p id="cultura-municipio">
+                    </p>
+
+                <button id="btn-pagina-completa" class="btn-primario">
+                    Ver Página Completa
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
