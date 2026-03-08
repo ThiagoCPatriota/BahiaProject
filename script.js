@@ -77,13 +77,15 @@ function selecionarMunicipio(id, caminhos = dom.wrapper.querySelectorAll('path')
   dom.regiao.textContent  = meso;
   dom.cultura.textContent = `Clique no botão abaixo para ver a história, cultura e galeria de imagens de ${nome}.`;
 
-  // Botão → abre página do município
+  // Botão → abre página do município na mesma aba
   dom.btnCompleta.onclick = () => {
     const nomeFormatado = nome
       .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
       .replace(/\s+/g, '-');
-    window.open(`municipios/${nomeFormatado}.html`, '_blank');
+      
+    // Abre a página na mesma guia!
+    window.location.href = `municipios/${nomeFormatado}.html`;
   };
 }
 
