@@ -1,0 +1,201 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+/* ── Cabeçalho ─────────────────────────────────────────────────── */
+#cabecalho {
+  height: 64px;
+  background: #0f172a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  gap: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.logo-faculdade {
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.logo-faculdade img {
+  max-height: 100%;
+  max-width: 120px;
+  object-fit: contain;
+}
+
+#cabecalho h1 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+/* ── Layout ────────────────────────────────────────────────────── */
+#conteudo-municipio {
+  display: flex;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  gap: 48px;
+}
+
+/* ── Sidebar ───────────────────────────────────────────────────── */
+#sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: sticky;
+  top: 88px;
+  align-self: flex-start;
+}
+
+.btn-voltar {
+  font-size: 0.82rem;
+  color: #64748b;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-voltar:hover { color: #0f172a; }
+
+#info-fixa {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#regiao-header {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+}
+
+#nome-header {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.1;
+}
+
+#codigo-ibge {
+  font-size: 0.75rem;
+  color: #cbd5e1;
+  margin-top: 4px;
+}
+
+/* ── Conteúdo principal ────────────────────────────────────────── */
+#conteudo-principal {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ── Galeria ───────────────────────────────────────────────────── */
+#galeria {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  grid-template-rows: 210px 140px;
+  gap: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.img-slot {
+  background: #e2e8f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.img-slot.grande { grid-row: span 2; }
+
+.img-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.img-slot img.visivel { opacity: 1; }
+
+/* Shimmer */
+.shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+  background-size: 250% 100%;
+  animation: shimmer 1.6s infinite;
+  transition: opacity 0.3s;
+}
+
+.shimmer.feito {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Artigo de cultura ─────────────────────────────────────────── */
+#cultura-artigo h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 20px;
+}
+
+#cultura-texto {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: #334155;
+}
+
+#cultura-texto p + p { margin-top: 1.1em; }
+
+/* Loader de pontos */
+.loader {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.loader span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.loader span:nth-child(2) { animation-delay: 0.15s; }
+.loader span:nth-child(3) { animation-delay: 0.30s; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50%       { opacity: 1;   transform: scale(1); }
+}

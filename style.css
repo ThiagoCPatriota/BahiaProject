@@ -1,188 +1,250 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f8fafc;
-    overflow: hidden; /* Evita barra de rolagem na página inteira */
+  background: #f8fafc;
+  overflow: hidden;
 }
 
-/* --- Cabeçalho --- */
+/* ── Cabeçalho ─────────────────────────────────────────────────── */
 #cabecalho {
-    height: 70px;
-    background-color: #0f172a; /* Cor bem escura */
-    color: white;
-    display: flex;
-    align-items: center; /* Centralizar verticalmente logo e texto */
-    padding: 0 30px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    position: relative;
-    z-index: 20;
+  height: 64px;
+  background: #0f172a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  gap: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  position: relative;
+  z-index: 20;
 }
 
 .logo-faculdade {
-    /* Ajustar o container da logo */
-    height: 50px;       /* Altura fixa boa para logos de cabeçalho */
-    margin-right: 20px;
-    display: flex;      /* Centralizar a imagem dentro do container */
-    align-items: center;
-    justify-content: center;
+  height: 44px;
+  display: flex;
+  align-items: center;
 }
 
-/* Esta é a parte mais importante para a imagem não quebrar o layout */
 .logo-faculdade img {
-    max-height: 100%; /* Escalar a altura para caber no container */
-    max-width: 100%;  /* Garantir que não extrapole a largura do container */
-    object-fit: contain; /* Manter a proporção e não cortar ou esticar */
+  max-height: 100%;
+  max-width: 120px;
+  object-fit: contain;
 }
 
 #cabecalho h1 {
-    font-size: 1.5rem;
-    font-weight: 500;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
-/* --- Conteúdo Principal (Painel + Mapa) --- */
+/* ── Layout principal ──────────────────────────────────────────── */
 #conteudo-principal {
-    display: flex;
-    height: calc(100vh - 70px); /* Ocupa a tela toda menos o cabeçalho */
+  display: flex;
+  height: calc(100vh - 64px);
 }
 
-/* --- Painel de Informações (NA ESQUERDA) --- */
+/* ── Painel esquerdo ───────────────────────────────────────────── */
 #painel-informacoes {
-    width: 400px;
-    background: white;
-    padding: 40px 30px;
-    /* Mudamos de -4px para 4px para a sombra projetar para a direita */
-    box-shadow: 4px 0 15px rgba(0,0,0,0.1); 
-    display: flex;
-    flex-direction: column;
-    z-index: 10;
-    overflow-y: auto;
+  width: 340px;
+  flex-shrink: 0;
+  background: #fff;
+  padding: 32px 24px;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+  overflow-y: auto;
 }
 
-/* O resto do CSS do painel continua igual */
+#painel-informacoes h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
 .subtitulo {
-    color: #64748b;
-    margin-top: 5px;
-    margin-bottom: 30px;
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* Detalhes do município */
+#detalhes-municipio {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 28px;
 }
 
 #nome-municipio {
-    color: #0f172a;
-    font-size: 1.8rem;
-    margin-bottom: 5px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.15;
 }
 
 #regiao-municipio {
-    color: #64748b;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
+  font-size: 0.78rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 #cultura-municipio {
-    line-height: 1.6;
-    color: #475569;
-    font-size: 0.95rem;
-    margin-bottom: 30px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: #475569;
+  margin-top: 4px;
 }
 
-/* Botão para a outra página */
 .btn-primario {
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    width: 100%;
-    transition: background 0.2s;
+  margin-top: 8px;
+  background: #0f172a;
+  color: #fff;
+  border: none;
+  padding: 11px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: background 0.15s;
 }
 
 .btn-primario:hover {
-    background-color: #1d4ed8;
+  background: #1e293b;
 }
 
 .oculto {
-    display: none !important;
+  display: none !important;
 }
 
-/* --- Área do Mapa e Zoom (NA DIREITA) --- */
+/* ── Área do mapa ──────────────────────────────────────────────── */
 #container-mapa {
-    flex: 1;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #1e293b; /* Fundo escuro liso */
-    overflow: hidden; 
-    cursor: grab;
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1e293b;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
 }
 
 #container-mapa:active {
-    cursor: grabbing;
+  cursor: grabbing;
 }
 
-#controles-zoom {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 15;
+/* Barra de pesquisa */
+#barra-pesquisa {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  width: 280px;
 }
 
-#controles-zoom button {
-    width: 40px;
-    height: 40px;
-    font-size: 1.5rem;
-    background-color: #334155;
-    color: white;
-    border: 1px solid #475569;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    transition: background 0.2s;
+#icone-lupa {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.95rem;
+  pointer-events: none;
+  line-height: 1;
 }
 
-#controles-zoom button:hover {
-    background-color: #475569;
+#input-pesquisa {
+  width: 100%;
+  padding: 10px 14px 10px 36px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  outline: none;
 }
 
+#input-pesquisa:focus {
+  border-color: #94a3b8;
+}
+
+/* Lista de sugestões */
+#lista-sugestoes {
+  list-style: none;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  display: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+#lista-sugestoes li {
+  padding: 9px 14px;
+  font-size: 0.85rem;
+  color: #334155;
+  cursor: pointer;
+}
+
+#lista-sugestoes li:hover {
+  background: #f1f5f9;
+}
+
+#lista-sugestoes li span {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-left: 6px;
+}
+
+/* Wrapper e SVG */
 #wrapper-mapa {
-    width: 90%;
-    height: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 80%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center center;
 }
 
-svg {
-    width: 100%;
-    height: 100%;
-    filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.5));
+#wrapper-mapa svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5));
 }
 
-/* --- Estilo do Mapa --- */
+#carregando {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+/* ── SVG: municípios ───────────────────────────────────────────── */
 path {
-    fill: #f8fafc;      /* Fundo branco */
-    stroke: #0f172a;    /* Borda escura */
-    stroke-width: 0.5;  
-    transition: fill 0.3s ease; /* Transição apenas na cor para o arraste ser fluido */
-    cursor: pointer;
-    transform-box: fill-box;
-    transform-origin: center;
+  fill: #e2e8f0;
+  stroke: #0f172a;
+  stroke-width: 0.4;
+  cursor: pointer;
+  transition: fill 0.2s;
 }
 
 path:hover {
-    fill: #fde047; /* Amarelo clarinho no hover */
+  fill: #fde68a;
 }
 
-/* Município selecionado */
-.municipio-ativo {
-    fill: #f59e0b !important; /* Laranja forte */
+path.municipio-ativo {
+  fill: #f59e0b !important;
+  stroke: #92400e;
+  stroke-width: 0.8;
 }

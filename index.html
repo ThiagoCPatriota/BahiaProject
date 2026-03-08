@@ -1,52 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Bahia - Municípios</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal Cultural da Bahia</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <header id="cabecalho">
-        <div class="logo-faculdade">
-            <img src="ifpe.jpeg" alt="Logo da Faculdade">
-        </div>
-        <h1>Portal Cultural da Bahia</h1>
-    </header>
+  <header id="cabecalho">
+    <div class="logo-faculdade">
+      <img src="ifpe.jpeg" alt="Logo da Faculdade" />
+    </div>
+    <h1>Portal Cultural da Bahia</h1>
+  </header>
 
-    <main id="conteudo-principal">
-        
-        <div id="painel-informacoes">
-            <h2>Resumo do Município</h2>
-            <p class="subtitulo">Clique no mapa para ver uma prévia.</p>
+  <main id="conteudo-principal">
 
-            <div id="detalhes-municipio" class="oculto">
-                <h3 id="nome-municipio">Nome do Município</h3>
-                <p id="regiao-municipio">Mesorregião</p>
-                
-                <p id="cultura-municipio">
-                </p>
+    <!-- Painel esquerdo -->
+    <div id="painel-informacoes">
+      <h2>Municípios da Bahia</h2>
+      <p class="subtitulo">Clique em um município no mapa para ver o resumo.</p>
 
-                <button id="btn-pagina-completa" class="btn-primario">
-                    Ver Página Completa
-                </button>
-            </div>
-        </div>
+      <div id="detalhes-municipio" class="oculto">
+        <h3 id="nome-municipio"></h3>
+        <p id="regiao-municipio"></p>
+        <p id="cultura-municipio"></p>
+        <button id="btn-pagina-completa" class="btn-primario">
+          Ver página completa →
+        </button>
+      </div>
+    </div>
 
-        <div id="container-mapa">
-            <div id="controles-zoom">
-                <button id="btn-zoom-in" title="Aumentar Zoom">+</button>
-                <button id="btn-zoom-out" title="Diminuir Zoom">-</button>
-            </div>
+    <!-- Área do mapa -->
+    <div id="container-mapa">
 
-            <div id="wrapper-mapa">
-                <h2 id="carregando">Buscando malha territorial no IBGE...</h2>
-            </div>
-        </div>
+      <!-- Barra de pesquisa -->
+      <div id="barra-pesquisa">
+        <span id="icone-lupa">&#128269;</span>
+        <input
+          type="text"
+          id="input-pesquisa"
+          placeholder="Pesquisar município..."
+          autocomplete="off"
+        />
+        <ul id="lista-sugestoes"></ul>
+      </div>
 
-    </main>
+      <div id="wrapper-mapa">
+        <p id="carregando">Carregando malha territorial do IBGE…</p>
+      </div>
+    </div>
 
-    <script src="script.js"></script>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
