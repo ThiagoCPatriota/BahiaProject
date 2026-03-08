@@ -1,32 +1,52 @@
+/* ============================================================
+   municipio.css — Tema Bahia
+   Cores inspiradas no sol, areia e mar da Bahia
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --amarelo:   #f59e0b;   /* Sol da Bahia */
+  --amarelo-claro: #fef3c7;
+  --azul-mar:  #0e7490;   /* Mar da Bahia */
+  --areia:     #faf7f2;   /* Areia da praia */
+  --terra:     #92400e;   /* Terra do sertão */
+  --escuro:    #1c1917;   /* Texto principal */
+  --medio:     #57534e;   /* Texto secundário */
+  --borda:     #e7e5e4;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  background: #f8fafc;
+  background: var(--areia);
+  color: var(--escuro);
+  font-family: 'Inter', sans-serif;
   min-height: 100vh;
 }
 
-/* ── Cabeçalho ─────────────────────────────────────────────────── */
+/* ── Cabeçalho ─────────────────────────────────────────────── */
 #cabecalho {
   height: 64px;
-  background: #0f172a;
+  background: var(--escuro);
   color: #fff;
   display: flex;
   align-items: center;
   padding: 0 28px;
   gap: 16px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
   position: sticky;
   top: 0;
   z-index: 20;
+  /* Linha dourada embaixo do cabeçalho */
+  border-bottom: 3px solid var(--amarelo);
 }
 
 .logo-faculdade {
-  height: 44px;
+  height: 40px;
   display: flex;
   align-items: center;
 }
@@ -38,11 +58,13 @@ body {
 }
 
 #cabecalho h1 {
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-family: 'Merriweather', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
-/* ── Layout ────────────────────────────────────────────────────── */
+/* ── Layout da página ──────────────────────────────────────── */
 #conteudo-municipio {
   display: flex;
   max-width: 1100px;
@@ -51,13 +73,13 @@ body {
   gap: 48px;
 }
 
-/* ── Sidebar ───────────────────────────────────────────────────── */
+/* ── Sidebar ───────────────────────────────────────────────── */
 #sidebar {
-  width: 220px;
+  width: 210px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 24px;
   position: sticky;
   top: 88px;
   align-self: flex-start;
@@ -65,64 +87,84 @@ body {
 
 .btn-voltar {
   font-size: 0.82rem;
-  color: #64748b;
+  font-weight: 500;
+  color: var(--azul-mar);
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.15s;
 }
 
-.btn-voltar:hover { color: #0f172a; }
+.btn-voltar:hover {
+  gap: 8px;
+  color: var(--terra);
+}
 
+/* Cartão de informações fixas */
 #info-fixa {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  padding: 20px 16px;
   display: flex;
   flex-direction: column;
   gap: 6px;
+  /* Barra lateral dourada */
+  border-left: 4px solid var(--amarelo);
 }
 
 #regiao-header {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #94a3b8;
+  letter-spacing: 0.1em;
+  color: var(--amarelo);
 }
 
 #nome-header {
-  font-size: 1.8rem;
+  font-family: 'Merriweather', serif;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #0f172a;
-  line-height: 1.1;
+  color: var(--escuro);
+  line-height: 1.2;
 }
 
 #codigo-ibge {
-  font-size: 0.75rem;
-  color: #cbd5e1;
+  font-size: 0.72rem;
+  color: #a8a29e;
   margin-top: 4px;
 }
 
-/* ── Conteúdo principal ────────────────────────────────────────── */
+/* ── Conteúdo principal ────────────────────────────────────── */
 #conteudo-principal {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 36px;
 }
 
-/* ── Galeria ───────────────────────────────────────────────────── */
+/* ── Galeria ───────────────────────────────────────────────── */
 #galeria {
   display: grid;
   grid-template-columns: 1.6fr 1fr;
-  grid-template-rows: 210px 140px;
+  grid-template-rows: 220px 150px;
   gap: 6px;
-  border-radius: 6px;
+  border-radius: 10px;
   overflow: hidden;
+  /* Sombra quente */
+  box-shadow: 0 4px 24px rgba(245, 158, 11, 0.15);
 }
 
 .img-slot {
-  background: #e2e8f0;
+  background: #e7e5e4;
   position: relative;
   overflow: hidden;
 }
 
-.img-slot.grande { grid-row: span 2; }
+.img-slot.grande {
+  grid-row: span 2;
+}
 
 .img-slot img {
   position: absolute;
@@ -130,72 +172,102 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.4s;
+  transition: transform 0.4s ease;
 }
 
-.img-slot img.visivel { opacity: 1; }
+.img-slot img.visivel {
+  opacity: 1;
+}
 
-/* Shimmer */
-.shimmer {
+.img-slot:hover img {
+  transform: scale(1.04);
+}
+
+/* Placeholder quando não tem imagem */
+.img-slot:not(:has(img.visivel))::after {
+  content: 'Sem foto';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
-  background-size: 250% 100%;
-  animation: shimmer 1.6s infinite;
-  transition: opacity 0.3s;
-}
-
-.shimmer.feito {
-  opacity: 0;
-  pointer-events: none;
-}
-
-@keyframes shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* ── Artigo de cultura ─────────────────────────────────────────── */
-#cultura-artigo h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #94a3b8;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #e2e8f0;
+  color: #a8a29e;
+}
+
+/* ── Artigo de cultura ─────────────────────────────────────── */
+#cultura-artigo {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  padding: 32px 36px;
+}
+
+#cultura-artigo h3 {
+  font-family: 'Merriweather', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--escuro);
+  padding-bottom: 14px;
   margin-bottom: 20px;
+  /* Linha separadora em degradê dourado */
+  border-bottom: 2px solid var(--amarelo-claro);
+  position: relative;
+}
+
+/* Detalhe dourado no título */
+#cultura-artigo h3::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 48px;
+  height: 2px;
+  background: var(--amarelo);
+  border-radius: 2px;
 }
 
 #cultura-texto {
   font-size: 0.95rem;
-  line-height: 1.85;
-  color: #334155;
+  line-height: 1.9;
+  color: var(--medio);
 }
 
-#cultura-texto p + p { margin-top: 1.1em; }
-
-/* Loader de pontos */
-.loader {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  padding: 8px 0;
+#cultura-texto p {
+  font-family: 'Merriweather', serif;
+  font-size: 0.92rem;
 }
 
-.loader span {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #cbd5e1;
-  animation: pulse 1.2s ease-in-out infinite;
+#cultura-texto p + p {
+  margin-top: 1.2em;
 }
 
-.loader span:nth-child(2) { animation-delay: 0.15s; }
-.loader span:nth-child(3) { animation-delay: 0.30s; }
+/* ── Responsivo ────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  #conteudo-municipio {
+    flex-direction: column;
+    padding: 24px 16px 60px;
+    gap: 24px;
+  }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.2; transform: scale(0.8); }
-  50%       { opacity: 1;   transform: scale(1); }
+  #sidebar {
+    width: 100%;
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  #info-fixa {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  #galeria {
+    grid-template-rows: 180px 120px;
+  }
+
+  #cultura-artigo {
+    padding: 24px 20px;
+  }
 }

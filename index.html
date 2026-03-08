@@ -17,27 +17,45 @@
 
   <main id="conteudo-principal">
 
-    <!-- Painel esquerdo -->
+    <!-- ── Painel esquerdo ── -->
     <div id="painel-informacoes">
-      <h2>Municípios da Bahia</h2>
-      <p class="subtitulo">Clique em um município no mapa para ver o resumo.</p>
 
-      <div id="detalhes-municipio" class="oculto">
-        <h3 id="nome-municipio"></h3>
-        <p id="regiao-municipio"></p>
-        <p id="cultura-municipio"></p>
-        <button id="btn-pagina-completa" class="btn-primario">
-          Ver página completa →
-        </button>
+      <div class="painel-topo">
+        <h2>Municípios da Bahia</h2>
+        <p class="subtitulo">Clique em um município no mapa para ver o resumo.</p>
       </div>
+
+      <!-- Estado vazio (antes de clicar) -->
+      <div id="estado-vazio">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+          <path d="M32 8C21 8 12 17 12 28c0 15 20 28 20 28s20-13 20-28C52 17 43 8 32 8z"
+                stroke="#111827" stroke-width="2.5" fill="none"/>
+          <circle cx="32" cy="28" r="6" stroke="#111827" stroke-width="2.5" fill="none"/>
+        </svg>
+        <p>Selecione um município no mapa para explorar sua cultura e história.</p>
+      </div>
+
+      <!-- Card do município (aparece ao clicar) -->
+      <div id="detalhes-municipio" class="oculto">
+        <div id="detalhes-header">
+          <p id="regiao-municipio"></p>
+          <h3 id="nome-municipio"></h3>
+        </div>
+        <div id="detalhes-body">
+          <p id="cultura-municipio"></p>
+          <button id="btn-pagina-completa" class="btn-primario">
+            Ver página completa →
+          </button>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Área do mapa -->
+    <!-- ── Área do mapa ── -->
     <div id="container-mapa">
 
-      <!-- Barra de pesquisa -->
       <div id="barra-pesquisa">
-        <span id="icone-lupa">&#128269;</span>
+        <span id="icone-lupa">🔍</span>
         <input
           type="text"
           id="input-pesquisa"
@@ -50,6 +68,7 @@
       <div id="wrapper-mapa">
         <p id="carregando">Carregando malha territorial do IBGE…</p>
       </div>
+
     </div>
 
   </main>

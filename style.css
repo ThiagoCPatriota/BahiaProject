@@ -1,156 +1,265 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --gold:      #e8a020;
+  --gold-soft: #fef3c7;
+  --navy:      #0f1f3d;
+  --navy-mid:  #1a3460;
+  --ocean:     #1a4a7a;
+  --map-fill:  #bdd5ea;
+  --map-hover: #f9d875;
+  --map-active:#e8a020;
+  --panel-bg:  #ffffff;
+  --text-dark: #111827;
+  --text-mid:  #6b7280;
+  --border:    #f0ede8;
+  --cream:     #faf8f5;
 }
 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-  background: #f8fafc;
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
   overflow: hidden;
 }
 
-/* ── Cabeçalho ─────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════
+   CABEÇALHO
+═══════════════════════════════════════ */
 #cabecalho {
-  height: 64px;
-  background: #0f172a;
+  height: 60px;
+  background: var(--navy);
   color: #fff;
   display: flex;
   align-items: center;
-  padding: 0 28px;
-  gap: 16px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  padding: 0 24px;
+  gap: 14px;
   position: relative;
   z-index: 20;
 }
 
+/* Linha dourada decorativa embaixo */
+#cabecalho::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold) 0%, #f5d28a 50%, transparent 100%);
+}
+
 .logo-faculdade {
-  height: 44px;
+  height: 36px;
   display: flex;
   align-items: center;
+  border-right: 1px solid rgba(255,255,255,0.15);
+  padding-right: 14px;
 }
 
 .logo-faculdade img {
   max-height: 100%;
-  max-width: 120px;
+  max-width: 100px;
   object-fit: contain;
 }
 
 #cabecalho h1 {
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
   letter-spacing: 0.01em;
+  color: #fff;
 }
 
-/* ── Layout principal ──────────────────────────────────────────── */
+/* Contador de municípios no canto direito */
+#cabecalho::before {
+  content: '417 municípios';
+  position: absolute;
+  right: 24px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════ */
 #conteudo-principal {
   display: flex;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 60px);
 }
 
-/* ── Painel esquerdo ───────────────────────────────────────────── */
+/* ═══════════════════════════════════════
+   PAINEL ESQUERDO
+═══════════════════════════════════════ */
 #painel-informacoes {
-  width: 340px;
+  width: 300px;
   flex-shrink: 0;
-  background: #fff;
-  padding: 32px 24px;
-  box-shadow: 4px 0 12px rgba(0,0,0,0.07);
+  background: var(--panel-bg);
   display: flex;
   flex-direction: column;
-  gap: 4px;
   z-index: 10;
   overflow-y: auto;
+  border-right: 1px solid #e5e7eb;
+}
+
+/* Topo do painel — título fixo */
+.painel-topo {
+  padding: 24px 22px 20px;
+  border-bottom: 1px solid var(--border);
 }
 
 #painel-informacoes h2 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #0f172a;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.2;
 }
 
 .subtitulo {
-  font-size: 0.82rem;
-  color: #94a3b8;
-  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--text-mid);
+  margin-top: 5px;
   line-height: 1.5;
 }
 
-/* Detalhes do município */
-#detalhes-municipio {
+/* Estado vazio — ícone + instrução */
+#estado-vazio {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 32px 22px;
+  text-align: center;
 }
 
-#nome-municipio {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #0f172a;
-  line-height: 1.15;
+#estado-vazio svg {
+  opacity: 0.18;
+}
+
+#estado-vazio p {
+  font-size: 0.8rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+  max-width: 180px;
+}
+
+/* Card do município selecionado */
+#detalhes-municipio {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* Faixa de cor no topo do card */
+#detalhes-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--ocean) 100%);
+  padding: 22px 22px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Detalhe geométrico de fundo */
+#detalhes-header::after {
+  content: '';
+  position: absolute;
+  right: -20px; top: -20px;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
 }
 
 #regiao-municipio {
-  font-size: 0.78rem;
-  color: #64748b;
+  font-size: 0.65rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+#nome-municipio {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.15;
+}
+
+/* Corpo do card */
+#detalhes-body {
+  padding: 20px 22px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 #cultura-municipio {
-  font-size: 0.88rem;
+  font-size: 0.83rem;
   line-height: 1.7;
-  color: #475569;
-  margin-top: 4px;
+  color: var(--text-mid);
 }
 
 .btn-primario {
-  margin-top: 8px;
-  background: #0f172a;
+  background: var(--navy);
   color: #fff;
   border: none;
-  padding: 11px 16px;
-  border-radius: 6px;
-  font-size: 0.9rem;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  font-weight: 600;
   cursor: pointer;
   width: 100%;
   text-align: center;
-  transition: background 0.15s;
+  transition: background 0.18s, transform 0.1s;
+  letter-spacing: 0.01em;
+  margin-top: auto;
 }
 
 .btn-primario:hover {
-  background: #1e293b;
+  background: var(--ocean);
 }
 
-.oculto {
-  display: none !important;
+.btn-primario:active {
+  transform: scale(0.98);
 }
 
-/* ── Área do mapa ──────────────────────────────────────────────── */
+.oculto { display: none !important; }
+
+/* ═══════════════════════════════════════
+   ÁREA DO MAPA
+═══════════════════════════════════════ */
 #container-mapa {
   flex: 1;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #1e293b;
+  background:
+    radial-gradient(ellipse at 30% 40%, #1a4a7a 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, #0e2d55 0%, transparent 50%),
+    linear-gradient(160deg, #0a1628 0%, #0f1f3d 100%);
   overflow: hidden;
   cursor: grab;
   user-select: none;
 }
 
-#container-mapa:active {
-  cursor: grabbing;
-}
+#container-mapa:active { cursor: grabbing; }
 
 /* Barra de pesquisa */
 #barra-pesquisa {
   position: absolute;
-  top: 18px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 15;
-  width: 280px;
+  width: 270px;
 }
 
 #icone-lupa {
@@ -158,61 +267,64 @@ body {
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   pointer-events: none;
-  line-height: 1;
+  opacity: 0.5;
 }
 
 #input-pesquisa {
   width: 100%;
-  padding: 10px 14px 10px 36px;
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 0.88rem;
-  color: #0f172a;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  padding: 10px 14px 10px 34px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 24px;
+  font-size: 0.84rem;
+  color: #fff;
   outline: none;
+  backdrop-filter: blur(12px);
+  transition: background 0.2s, border-color 0.2s;
 }
+
+#input-pesquisa::placeholder { color: rgba(255,255,255,0.45); }
 
 #input-pesquisa:focus {
-  border-color: #94a3b8;
+  background: rgba(255,255,255,0.18);
+  border-color: var(--gold);
 }
 
-/* Lista de sugestões */
 #lista-sugestoes {
   list-style: none;
   background: #fff;
-  border: 1px solid #e2e8f0;
-  border-top: none;
-  border-radius: 0 0 8px 8px;
+  border-radius: 12px;
+  margin-top: 6px;
   max-height: 220px;
   overflow-y: auto;
   display: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
 #lista-sugestoes li {
-  padding: 9px 14px;
-  font-size: 0.85rem;
-  color: #334155;
+  padding: 10px 16px;
+  font-size: 0.84rem;
+  color: #1f2937;
   cursor: pointer;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.12s;
 }
 
-#lista-sugestoes li:hover {
-  background: #f1f5f9;
-}
+#lista-sugestoes li:last-child { border-bottom: none; }
+#lista-sugestoes li:hover { background: #fffbeb; }
 
 #lista-sugestoes li span {
-  font-size: 0.75rem;
-  color: #94a3b8;
+  font-size: 0.72rem;
+  color: #9ca3af;
   margin-left: 6px;
 }
 
-/* Wrapper e SVG */
+/* SVG do mapa */
 #wrapper-mapa {
-  width: 80%;
-  height: 90%;
+  width: 78%;
+  height: 88%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -222,29 +334,29 @@ body {
 #wrapper-mapa svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 12px 32px rgba(0,0,0,0.6));
 }
 
 #carregando {
-  color: #94a3b8;
-  font-size: 0.9rem;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.85rem;
 }
 
-/* ── SVG: municípios ───────────────────────────────────────────── */
-path {
-  fill: #e2e8f0;
-  stroke: #0f172a;
-  stroke-width: 0.4;
-  cursor: pointer;
-  transition: fill 0.2s;
+/* Municípios — override do fill inline do IBGE */
+#wrapper-mapa path {
+  fill: var(--map-fill) !important;
+  stroke: #7a9fc0 !important;
+  stroke-width: 0.35 !important;
+  cursor: pointer !important;
+  transition: fill 0.12s !important;
 }
 
-path:hover {
-  fill: #fde68a;
+#wrapper-mapa path:hover {
+  fill: var(--map-hover) !important;
 }
 
-path.municipio-ativo {
-  fill: #f59e0b !important;
-  stroke: #92400e;
-  stroke-width: 0.8;
+#wrapper-mapa path.municipio-ativo {
+  fill: var(--map-active) !important;
+  stroke: #7c3400 !important;
+  stroke-width: 0.9 !important;
 }
