@@ -1,59 +1,58 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+
+/* ============================================================
+   TEMA SERTÃO — Portal Cultural da Bahia
+   Paleta: terra seca, barro, couro, sol a pino
+   ============================================================ */
 
 :root {
-  --gold:      #e8a020;
-  --gold-soft: #fef3c7;
-  --navy:      #0f1f3d;
-  --navy-mid:  #1a3460;
-  --ocean:     #1a4a7a;
-  --map-fill:  #bdd5ea;
-  --map-hover: #f9d875;
-  --map-active:#e8a020;
-  --panel-bg:  #ffffff;
-  --text-dark: #111827;
-  --text-mid:  #6b7280;
-  --border:    #f0ede8;
-  --cream:     #faf8f5;
+  --barro:        #c17f3a;   /* Tom principal — barro úmido */
+  --barro-claro:  #e8c088;   /* Barro claro, areia quente */
+  --barro-escuro: #8b4e13;   /* Barro escuro, couro curtido */
+  --seco:         #f5ede0;   /* Fundo seco, caatinga */
+  --pele:         #faf4ea;   /* Fundo mais claro */
+  --carvao:       #1e140a;   /* Quase preto, fumaça de fogão */
+  --cinza-seca:   #8c7b6a;   /* Poeira, cinza de palha */
+  --borda:        #d6c3a8;   /* Borda cor de palha */
+  --branco-sol:   #fffdf8;   /* Branco lavado pelo sol */
+
+  /* Mapa */
+  --mapa-fill:    #d4a96a;   /* Municípios: barro */
+  --mapa-stroke:  #000000;   /* Divisões: branco queimado */
+  --mapa-hover:   #9b958a;   /* Hover: amarelo sol */
+  --mapa-ativo:   #001275;   /* Selecionado: couro escuro */
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Inter', sans-serif;
-  background: var(--cream);
+  background: var(--seco);
+  color: var(--carvao);
   overflow: hidden;
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    CABEÇALHO
-═══════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 #cabecalho {
-  height: 60px;
-  background: var(--navy);
-  color: #fff;
+  height: 62px;
+  background: var(--carvao);
+  color: var(--branco-sol);
   display: flex;
   align-items: center;
   padding: 0 24px;
-  gap: 14px;
+  gap: 18px;
   position: relative;
   z-index: 20;
-}
-
-/* Linha dourada decorativa embaixo */
-#cabecalho::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--gold) 0%, #f5d28a 50%, transparent 100%);
+  border-bottom: 3px solid var(--barro);
 }
 
 .logo-faculdade {
   height: 36px;
   display: flex;
   align-items: center;
-  border-right: 1px solid rgba(255,255,255,0.15);
-  padding-right: 14px;
+  flex-shrink: 0;
 }
 
 .logo-faculdade img {
@@ -62,189 +61,260 @@ body {
   object-fit: contain;
 }
 
+/* Separador vertical */
+.logo-faculdade::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 28px;
+  background: rgba(255,255,255,0.12);
+  margin-left: 18px;
+}
+
 #cabecalho h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  color: #fff;
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--barro-claro);
+  white-space: nowrap;
 }
 
-/* Contador de municípios no canto direito */
-#cabecalho::before {
-  content: '417 municípios';
+/* Barra de pesquisa no cabeçalho */
+#barra-pesquisa {
+  margin-left: auto;
+  position: relative;
+  width: 300px;
+  flex-shrink: 0;
+}
+
+#icone-lupa {
   position: absolute;
-  right: 24px;
-  font-size: 0.72rem;
-  font-weight: 500;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85rem;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 2;
 }
 
-/* ═══════════════════════════════════════
+#input-pesquisa {
+  width: 100%;
+  padding: 9px 14px 9px 36px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  font-size: 0.84rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--branco-sol);
+  outline: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+#input-pesquisa::placeholder { color: rgba(255,255,255,0.35); }
+
+#input-pesquisa:focus {
+  background: rgba(255,255,255,0.14);
+  border-color: var(--barro);
+}
+
+#lista-sugestoes {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  list-style: none;
+  background: var(--branco-sol);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+  display: none;
+  box-shadow: 0 8px 28px rgba(30,20,10,0.18);
+  z-index: 100;
+}
+
+#lista-sugestoes li {
+  padding: 11px 16px;
+  font-size: 0.84rem;
+  color: var(--carvao);
+  cursor: pointer;
+  border-bottom: 1px solid var(--borda);
+  transition: background 0.12s;
+}
+
+#lista-sugestoes li:last-child { border-bottom: none; }
+
+#lista-sugestoes li:hover {
+  background: #fdf3e3;
+}
+
+#lista-sugestoes li strong {
+  font-weight: 600;
+}
+
+#lista-sugestoes li span {
+  font-size: 0.72rem;
+  color: var(--cinza-seca);
+  margin-left: 6px;
+}
+
+/* ═══════════════════════════════════════════════
    LAYOUT
-═══════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 #conteudo-principal {
   display: flex;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 62px);
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    PAINEL ESQUERDO
-═══════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 #painel-informacoes {
   width: 300px;
   flex-shrink: 0;
-  background: var(--panel-bg);
+  background: var(--branco-sol);
   display: flex;
   flex-direction: column;
   z-index: 10;
   overflow-y: auto;
-  border-right: 1px solid #e5e7eb;
+  border-right: 1px solid var(--borda);
 }
 
-/* Topo do painel — título fixo */
 .painel-topo {
-  padding: 24px 22px 20px;
-  border-bottom: 1px solid var(--border);
+  padding: 22px 22px 18px;
+  border-bottom: 1px solid var(--borda);
+  background: var(--pele);
 }
 
 #painel-informacoes h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.15rem;
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.2rem;
   font-weight: 700;
-  color: var(--text-dark);
-  line-height: 1.2;
+  color: var(--carvao);
+  letter-spacing: 0.01em;
 }
 
 .subtitulo {
   font-size: 0.78rem;
-  color: var(--text-mid);
+  color: var(--cinza-seca);
   margin-top: 5px;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
-/* Estado vazio — ícone + instrução */
+/* Estado vazio */
 #estado-vazio {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 32px 22px;
+  gap: 14px;
+  padding: 32px 24px;
   text-align: center;
 }
 
-#estado-vazio svg {
-  opacity: 0.18;
-}
+#estado-vazio svg { opacity: 0.25; }
 
 #estado-vazio p {
-  font-size: 0.8rem;
-  color: var(--text-mid);
+  font-size: 0.82rem;
+  color: var(--cinza-seca);
   line-height: 1.6;
-  max-width: 180px;
+  max-width: 190px;
 }
 
-/* Card do município selecionado */
+/* Card do município */
 #detalhes-municipio {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 0;
 }
 
-/* Faixa de cor no topo do card */
 #detalhes-header {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--ocean) 100%);
-  padding: 22px 22px 20px;
+  padding: 20px 22px 18px;
+  background: var(--barro-escuro);
   position: relative;
   overflow: hidden;
 }
 
-/* Detalhe geométrico de fundo */
-#detalhes-header::after {
+/* Textura sutil de sombra no canto */
+#detalhes-header::before {
   content: '';
   position: absolute;
-  right: -20px; top: -20px;
+  bottom: -30px; right: -30px;
   width: 100px; height: 100px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.12);
 }
 
 #regiao-municipio {
   font-size: 0.65rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--gold);
-  margin-bottom: 6px;
+  letter-spacing: 0.14em;
+  color: var(--barro-claro);
+  margin-bottom: 7px;
+  opacity: 0.85;
 }
 
 #nome-municipio {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.55rem;
-  font-weight: 900;
-  color: #ffffff;
-  line-height: 1.15;
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
 }
 
-/* Corpo do card */
 #detalhes-body {
   padding: 20px 22px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 #cultura-municipio {
-  font-size: 0.83rem;
-  line-height: 1.7;
-  color: var(--text-mid);
+  font-size: 0.84rem;
+  line-height: 1.72;
+  color: var(--cinza-seca);
 }
 
 .btn-primario {
-  background: var(--navy);
+  margin-top: auto;
+  background: var(--barro);
   color: #fff;
   border: none;
   padding: 12px 16px;
-  border-radius: 8px;
-  font-size: 0.86rem;
+  border-radius: 6px;
+  font-size: 0.88rem;
   font-weight: 600;
+  font-family: 'Inter', sans-serif;
   cursor: pointer;
   width: 100%;
   text-align: center;
-  transition: background 0.18s, transform 0.1s;
   letter-spacing: 0.01em;
-  margin-top: auto;
+  transition: background 0.15s, transform 0.1s;
 }
 
-.btn-primario:hover {
-  background: var(--ocean);
-}
-
-.btn-primario:active {
-  transform: scale(0.98);
-}
+.btn-primario:hover  { background: var(--barro-escuro); }
+.btn-primario:active { transform: scale(0.98); }
 
 .oculto { display: none !important; }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    ÁREA DO MAPA
-═══════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 #container-mapa {
   flex: 1;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  /* Fundo seco de caatinga — degradê sutil */
   background:
-    radial-gradient(ellipse at 30% 40%, #1a4a7a 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 80%, #0e2d55 0%, transparent 50%),
-    linear-gradient(160deg, #0a1628 0%, #0f1f3d 100%);
+    radial-gradient(ellipse at 60% 40%, #e8d0a8 0%, transparent 65%),
+    linear-gradient(170deg, #b3a996 0%, #b3a793 50%, #a1937b 100%);
   overflow: hidden;
   cursor: grab;
   user-select: none;
@@ -252,111 +322,47 @@ body {
 
 #container-mapa:active { cursor: grabbing; }
 
-/* Barra de pesquisa */
-#barra-pesquisa {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 15;
-  width: 270px;
-}
-
-#icone-lupa {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.85rem;
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-#input-pesquisa {
-  width: 100%;
-  padding: 10px 14px 10px 34px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 24px;
-  font-size: 0.84rem;
-  color: #fff;
-  outline: none;
-  backdrop-filter: blur(12px);
-  transition: background 0.2s, border-color 0.2s;
-}
-
-#input-pesquisa::placeholder { color: rgba(255,255,255,0.45); }
-
-#input-pesquisa:focus {
-  background: rgba(255,255,255,0.18);
-  border-color: var(--gold);
-}
-
-#lista-sugestoes {
-  list-style: none;
-  background: #fff;
-  border-radius: 12px;
-  margin-top: 6px;
-  max-height: 220px;
-  overflow-y: auto;
-  display: none;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-}
-
-#lista-sugestoes li {
-  padding: 10px 16px;
-  font-size: 0.84rem;
-  color: #1f2937;
-  cursor: pointer;
-  border-bottom: 1px solid #f3f4f6;
-  transition: background 0.12s;
-}
-
-#lista-sugestoes li:last-child { border-bottom: none; }
-#lista-sugestoes li:hover { background: #fffbeb; }
-
-#lista-sugestoes li span {
-  font-size: 0.72rem;
-  color: #9ca3af;
-  margin-left: 6px;
-}
-
-/* SVG do mapa */
 #wrapper-mapa {
-  width: 78%;
-  height: 88%;
+  width: 82%;
+  height: 92%;
   display: flex;
   justify-content: center;
   align-items: center;
   transform-origin: center center;
 }
 
+/* Sombra quente de barro no mapa */
 #wrapper-mapa svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 12px 32px rgba(0,0,0,0.6));
+  filter: drop-shadow(0 10px 28px rgba(100, 50, 10, 0.35));
 }
 
 #carregando {
-  color: rgba(255,255,255,0.4);
-  font-size: 0.85rem;
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+  color: var(--barro-escuro);
+  opacity: 0.7;
+  font-style: italic;
 }
 
-/* Municípios — override do fill inline do IBGE */
+/* ── Municípios no SVG ─────────────────────────────────────── */
+/* !important necessário pois o IBGE injeta fill inline nos paths */
+
 #wrapper-mapa path {
-  fill: var(--map-fill) !important;
-  stroke: #7a9fc0 !important;
-  stroke-width: 0.35 !important;
-  cursor: pointer !important;
-  transition: fill 0.12s !important;
+  fill:         var(--mapa-fill)   !important;
+  stroke:       var(--mapa-stroke) !important;
+  stroke-width: 20               !important;
+  cursor:       pointer            !important;
+  transition:   fill 0.15s ease   !important;
 }
 
 #wrapper-mapa path:hover {
-  fill: var(--map-hover) !important;
+  fill: var(--mapa-hover) !important;
 }
 
 #wrapper-mapa path.municipio-ativo {
-  fill: var(--map-active) !important;
-  stroke: #7c3400 !important;
-  stroke-width: 0.9 !important;
+  fill:         var(--mapa-ativo) !important;
+  stroke:       #ffe8b0           !important;
+  stroke-width: 1.2               !important;
 }

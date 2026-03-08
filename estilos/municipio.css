@@ -1,39 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+
 /* ============================================================
-   municipio.css — Tema Bahia
-   Cores inspiradas no sol, areia e mar da Bahia
+   municipio.css — Tema Sertão
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
-
 :root {
-  --amarelo:   #f59e0b;   /* Sol da Bahia */
-  --amarelo-claro: #fef3c7;
-  --azul-mar:  #0e7490;   /* Mar da Bahia */
-  --areia:     #faf7f2;   /* Areia da praia */
-  --terra:     #92400e;   /* Terra do sertão */
-  --escuro:    #1c1917;   /* Texto principal */
-  --medio:     #57534e;   /* Texto secundário */
-  --borda:     #e7e5e4;
+  --barro:        #c17f3a;
+  --barro-claro:  #e8c088;
+  --barro-escuro: #8b4e13;
+  --seco:         #f5ede0;
+  --pele:         #faf4ea;
+  --carvao:       #1e140a;
+  --cinza-seca:   #8c7b6a;
+  --borda:        #d6c3a8;
+  --branco-sol:   #fffdf8;
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: var(--areia);
-  color: var(--escuro);
   font-family: 'Inter', sans-serif;
+  background: var(--seco);
+  color: var(--carvao);
   min-height: 100vh;
 }
 
-/* ── Cabeçalho ─────────────────────────────────────────────── */
+/* ── Cabeçalho ─────────────────────────────────────────── */
 #cabecalho {
-  height: 64px;
-  background: var(--escuro);
-  color: #fff;
+  height: 62px;
+  background: var(--carvao);
+  color: var(--branco-sol);
   display: flex;
   align-items: center;
   padding: 0 28px;
@@ -41,233 +37,171 @@ body {
   position: sticky;
   top: 0;
   z-index: 20;
-  /* Linha dourada embaixo do cabeçalho */
-  border-bottom: 3px solid var(--amarelo);
+  border-bottom: 3px solid var(--barro);
 }
 
-.logo-faculdade {
-  height: 40px;
-  display: flex;
-  align-items: center;
-}
-
-.logo-faculdade img {
-  max-height: 100%;
-  max-width: 120px;
-  object-fit: contain;
-}
+.logo-faculdade { height: 38px; display: flex; align-items: center; }
+.logo-faculdade img { max-height: 100%; max-width: 110px; object-fit: contain; }
 
 #cabecalho h1 {
-  font-family: 'Merriweather', serif;
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--barro-claro);
   letter-spacing: 0.01em;
 }
 
-/* ── Layout da página ──────────────────────────────────────── */
+/* ── Layout ────────────────────────────────────────────── */
 #conteudo-municipio {
   display: flex;
-  max-width: 1100px;
+  max-width: 1080px;
   margin: 0 auto;
   padding: 40px 24px 80px;
-  gap: 48px;
+  gap: 44px;
 }
 
-/* ── Sidebar ───────────────────────────────────────────────── */
+/* ── Sidebar ───────────────────────────────────────────── */
 #sidebar {
   width: 210px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   position: sticky;
-  top: 88px;
+  top: 86px;
   align-self: flex-start;
 }
 
 .btn-voltar {
   font-size: 0.82rem;
   font-weight: 500;
-  color: var(--azul-mar);
+  color: var(--barro);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  transition: gap 0.15s;
+  transition: gap 0.15s, color 0.15s;
 }
+.btn-voltar:hover { gap: 8px; color: var(--barro-escuro); }
 
-.btn-voltar:hover {
-  gap: 8px;
-  color: var(--terra);
-}
-
-/* Cartão de informações fixas */
+/* Card de info */
 #info-fixa {
-  background: #fff;
+  background: var(--branco-sol);
   border: 1px solid var(--borda);
-  border-radius: 10px;
-  padding: 20px 16px;
+  border-left: 4px solid var(--barro);
+  border-radius: 8px;
+  padding: 18px 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  /* Barra lateral dourada */
-  border-left: 4px solid var(--amarelo);
+  gap: 5px;
 }
 
 #regiao-header {
-  font-size: 0.68rem;
+  font-size: 0.67rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--amarelo);
+  letter-spacing: 0.12em;
+  color: var(--barro);
 }
 
 #nome-header {
-  font-family: 'Merriweather', serif;
-  font-size: 1.5rem;
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.55rem;
   font-weight: 700;
-  color: var(--escuro);
-  line-height: 1.2;
+  color: var(--carvao);
+  line-height: 1.15;
 }
 
 #codigo-ibge {
-  font-size: 0.72rem;
-  color: #a8a29e;
-  margin-top: 4px;
+  font-size: 0.7rem;
+  color: var(--cinza-seca);
+  margin-top: 2px;
 }
 
-/* ── Conteúdo principal ────────────────────────────────────── */
+/* ── Conteúdo principal ────────────────────────────────── */
 #conteudo-principal {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 32px;
 }
 
-/* ── Galeria ───────────────────────────────────────────────── */
+/* ── Galeria ───────────────────────────────────────────── */
 #galeria {
   display: grid;
   grid-template-columns: 1.6fr 1fr;
-  grid-template-rows: 220px 150px;
-  gap: 6px;
-  border-radius: 10px;
+  grid-template-rows: 210px 140px;
+  gap: 5px;
+  border-radius: 8px;
   overflow: hidden;
-  /* Sombra quente */
-  box-shadow: 0 4px 24px rgba(245, 158, 11, 0.15);
+  box-shadow: 0 4px 20px rgba(140, 80, 20, 0.15);
 }
 
 .img-slot {
-  background: #e7e5e4;
+  background: var(--borda);
   position: relative;
   overflow: hidden;
 }
 
-.img-slot.grande {
-  grid-row: span 2;
-}
+.img-slot.grande { grid-row: span 2; }
 
 .img-slot img {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
 
-.img-slot img.visivel {
-  opacity: 1;
-}
+.img-slot img.visivel { opacity: 1; }
+.img-slot:hover img   { transform: scale(1.04); }
 
-.img-slot:hover img {
-  transform: scale(1.04);
-}
-
-/* Placeholder quando não tem imagem */
-.img-slot:not(:has(img.visivel))::after {
-  content: 'Sem foto';
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  color: #a8a29e;
-}
-
-/* ── Artigo de cultura ─────────────────────────────────────── */
+/* ── Artigo ────────────────────────────────────────────── */
 #cultura-artigo {
-  background: #fff;
+  background: var(--branco-sol);
   border: 1px solid var(--borda);
-  border-radius: 10px;
-  padding: 32px 36px;
+  border-radius: 8px;
+  padding: 30px 32px;
 }
 
 #cultura-artigo h3 {
-  font-family: 'Merriweather', serif;
-  font-size: 1rem;
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: var(--escuro);
-  padding-bottom: 14px;
+  color: var(--carvao);
+  padding-bottom: 12px;
   margin-bottom: 20px;
-  /* Linha separadora em degradê dourado */
-  border-bottom: 2px solid var(--amarelo-claro);
+  border-bottom: 1px solid var(--borda);
   position: relative;
 }
 
-/* Detalhe dourado no título */
+/* Sublinhado barro */
 #cultura-artigo h3::after {
   content: '';
   position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 48px;
-  height: 2px;
-  background: var(--amarelo);
+  bottom: -1px; left: 0;
+  width: 44px; height: 2px;
+  background: var(--barro);
   border-radius: 2px;
 }
 
 #cultura-texto {
-  font-size: 0.95rem;
-  line-height: 1.9;
-  color: var(--medio);
+  font-size: 0.93rem;
+  line-height: 1.88;
+  color: #4a3a2a;
 }
 
 #cultura-texto p {
-  font-family: 'Merriweather', serif;
-  font-size: 0.92rem;
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
 }
 
-#cultura-texto p + p {
-  margin-top: 1.2em;
-}
+#cultura-texto p + p { margin-top: 1.15em; }
 
-/* ── Responsivo ────────────────────────────────────────────── */
-@media (max-width: 700px) {
-  #conteudo-municipio {
-    flex-direction: column;
-    padding: 24px 16px 60px;
-    gap: 24px;
-  }
-
-  #sidebar {
-    width: 100%;
-    position: static;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  #info-fixa {
-    flex: 1;
-    min-width: 200px;
-  }
-
-  #galeria {
-    grid-template-rows: 180px 120px;
-  }
-
-  #cultura-artigo {
-    padding: 24px 20px;
-  }
+/* ── Responsivo ────────────────────────────────────────── */
+@media (max-width: 680px) {
+  #conteudo-municipio { flex-direction: column; padding: 20px 16px 60px; gap: 20px; }
+  #sidebar { width: 100%; position: static; }
+  #galeria { grid-template-rows: 170px 110px; }
+  #cultura-artigo { padding: 22px 18px; }
 }

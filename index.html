@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portal Cultural da Bahia</title>
-  <link rel="icon" href="../imgs/icos/ifpe.png" type="image/png">
+  <link rel="icon" href="./imgs/icos/ifpe.png" type="image/png">
   <link rel="stylesheet" href="style.css" />
-
 </head>
 <body>
 
@@ -15,29 +14,36 @@
       <img src="./imgs/icos/ifpe.png" alt="Logo da Faculdade" />
     </div>
     <h1>Portal Cultural da Bahia</h1>
+
+    <div id="barra-pesquisa">
+      <span id="icone-lupa">🔍</span>
+      <input
+        type="text"
+        id="input-pesquisa"
+        placeholder="Pesquisar município..."
+        autocomplete="off"
+      />
+      <ul id="lista-sugestoes"></ul>
+    </div>
   </header>
 
   <main id="conteudo-principal">
 
-    <!-- ── Painel esquerdo ── -->
     <div id="painel-informacoes">
-
       <div class="painel-topo">
         <h2>Municípios da Bahia</h2>
         <p class="subtitulo">Clique em um município no mapa para ver o resumo.</p>
       </div>
 
-      <!-- Estado vazio (antes de clicar) -->
       <div id="estado-vazio">
         <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
           <path d="M32 8C21 8 12 17 12 28c0 15 20 28 20 28s20-13 20-28C52 17 43 8 32 8z"
-                stroke="#111827" stroke-width="2.5" fill="none"/>
-          <circle cx="32" cy="28" r="6" stroke="#111827" stroke-width="2.5" fill="none"/>
+                stroke="#57534e" stroke-width="2.5" fill="none"/>
+          <circle cx="32" cy="28" r="6" stroke="#57534e" stroke-width="2.5" fill="none"/>
         </svg>
         <p>Selecione um município no mapa para explorar sua cultura e história.</p>
       </div>
 
-      <!-- Card do município (aparece ao clicar) -->
       <div id="detalhes-municipio" class="oculto">
         <div id="detalhes-header">
           <p id="regiao-municipio"></p>
@@ -50,27 +56,12 @@
           </button>
         </div>
       </div>
-
     </div>
 
-    <!-- ── Área do mapa ── -->
     <div id="container-mapa">
-
-      <div id="barra-pesquisa">
-        <span id="icone-lupa">🔍</span>
-        <input
-          type="text"
-          id="input-pesquisa"
-          placeholder="Pesquisar município..."
-          autocomplete="off"
-        />
-        <ul id="lista-sugestoes"></ul>
-      </div>
-
       <div id="wrapper-mapa">
         <p id="carregando">Carregando malha territorial do IBGE…</p>
       </div>
-
     </div>
 
   </main>
