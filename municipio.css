@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+
+/* ============================================================
+   municipio.css — Tema Sertão
+   ============================================================ */
+
+:root {
+  --barro:        #c17f3a;
+  --barro-claro:  #e8c088;
+  --barro-escuro: #8b4e13;
+  --seco:         #f5ede0;
+  --pele:         #faf4ea;
+  --carvao:       #1e140a;
+  --cinza-seca:   #8c7b6a;
+  --borda:        #d6c3a8;
+  --branco-sol:   #fffdf8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--seco);
+  color: var(--carvao);
+  min-height: 100vh;
+}
+
+/* ── Cabeçalho ─────────────────────────────────────────── */
+#cabecalho {
+  height: 62px;
+  background: var(--carvao);
+  color: var(--branco-sol);
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 3px solid var(--barro);
+}
+
+.logo-faculdade { height: 38px; display: flex; align-items: center; }
+.logo-faculdade img { max-height: 100%; max-width: 110px; object-fit: contain; }
+
+#cabecalho h1 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--barro-claro);
+  letter-spacing: 0.01em;
+}
+
+/* ── Layout ────────────────────────────────────────────── */
+#conteudo-municipio {
+  display: flex;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  gap: 44px;
+}
+
+/* ── Sidebar ───────────────────────────────────────────── */
+#sidebar {
+  width: 210px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 86px;
+  align-self: flex-start;
+}
+
+.btn-voltar {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--barro);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.15s, color 0.15s;
+}
+.btn-voltar:hover { gap: 8px; color: var(--barro-escuro); }
+
+/* Card de info */
+#info-fixa {
+  background: var(--branco-sol);
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--barro);
+  border-radius: 8px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#regiao-header {
+  font-size: 0.67rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--barro);
+}
+
+#nome-header {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--carvao);
+  line-height: 1.15;
+}
+
+#codigo-ibge {
+  font-size: 0.7rem;
+  color: var(--cinza-seca);
+  margin-top: 2px;
+}
+
+/* ── Conteúdo principal ────────────────────────────────── */
+#conteudo-principal {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ── Galeria ───────────────────────────────────────────── */
+#galeria {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  grid-template-rows: 210px 140px;
+  gap: 5px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(140, 80, 20, 0.15);
+}
+
+.img-slot {
+  background: var(--borda);
+  position: relative;
+  overflow: hidden;
+}
+
+.img-slot.grande { grid-row: span 2; }
+
+.img-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.img-slot img.visivel { opacity: 1; }
+.img-slot:hover img   { transform: scale(1.04); }
+
+/* ── Artigo ────────────────────────────────────────────── */
+#cultura-artigo {
+  background: var(--branco-sol);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 30px 32px;
+}
+
+#cultura-artigo h3 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--carvao);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--borda);
+  position: relative;
+}
+
+/* Sublinhado barro */
+#cultura-artigo h3::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 44px; height: 2px;
+  background: var(--barro);
+  border-radius: 2px;
+}
+
+#cultura-texto {
+  font-size: 0.93rem;
+  line-height: 1.88;
+  color: #4a3a2a;
+}
+
+#cultura-texto p {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+}
+
+#cultura-texto p + p { margin-top: 1.15em; }
+
+/* ── Responsivo ────────────────────────────────────────── */
+@media (max-width: 680px) {
+  #conteudo-municipio { flex-direction: column; padding: 20px 16px 60px; gap: 20px; }
+  #sidebar { width: 100%; position: static; }
+  #galeria { grid-template-rows: 170px 110px; }
+  #cultura-artigo { padding: 22px 18px; }
+}
