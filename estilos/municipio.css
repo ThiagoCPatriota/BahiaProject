@@ -118,6 +118,12 @@ body {
   margin-top: 2px;
 }
 
+#distancia-capital {
+  font-size: 0.7rem;
+  color: var(--cinza-seca);
+  margin-top: 2px;
+}
+
 /* ── Conteúdo principal ────────────────────────────────── */
 #conteudo-principal {
   flex: 1;
