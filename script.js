@@ -1,30 +1,23 @@
-// =============================================================
-//  PORTAL CULTURAL DA BAHIA — script.js
-// =============================================================
-
-// --- 1. Elementos do DOM ---
 const dom = {
-  container:    document.getElementById('container-mapa'),
-  wrapper:      document.getElementById('wrapper-mapa'),
-  carregando:   document.getElementById('carregando'),
-  estadoVazio:  document.getElementById('estado-vazio'),
-  detalhes:     document.getElementById('detalhes-municipio'),
-  nome:         document.getElementById('nome-municipio'),
-  regiao:       document.getElementById('regiao-municipio'),
-  cultura:      document.getElementById('cultura-municipio'),
-  btnCompleta:  document.getElementById('btn-pagina-completa'),
-  pesquisa:     document.getElementById('input-pesquisa'),
-  sugestoes:    document.getElementById('lista-sugestoes')
+  container: document.getElementById('container-mapa'),
+  wrapper: document.getElementById('wrapper-mapa'),
+  carregando: document.getElementById('carregando'),
+  estadoVazio: document.getElementById('estado-vazio'),
+  detalhes: document.getElementById('detalhes-municipio'),
+  nome: document.getElementById('nome-municipio'),
+  regiao: document.getElementById('regiao-municipio'),
+  cultura: document.getElementById('cultura-municipio'),
+  btnCompleta: document.getElementById('btn-pagina-completa'),
+  pesquisa: document.getElementById('input-pesquisa'),
+  sugestoes: document.getElementById('lista-sugestoes')
 };
 
-// --- 2. Variáveis globais ---
 let todosMunicipios = [];
-let municipioAtivo  = null;
-let transform  = { scale: 1, x: 0, y: 0 };
+let municipioAtivo = null;
+let transform = { scale: 1, x: 0, y: 0 };
 let arrastando = false, moveuMouse = false;
 let startX, startY;
 
-// --- 3. Inicialização ---
 async function iniciar() {
   try {
     const [resMapa, resMunicipios] = await Promise.all([
@@ -33,7 +26,7 @@ async function iniciar() {
     ]);
 
     dom.wrapper.innerHTML = await resMapa.text();
-    todosMunicipios       = await resMunicipios.json();
+    todosMunicipios = await resMunicipios.json();
     dom.carregando.remove();
 
     configurarInteracoesMapa();
@@ -43,7 +36,6 @@ async function iniciar() {
   }
 }
 
-// --- 4. Cliques no mapa ---
 function configurarInteracoesMapa() {
   const caminhos = dom.wrapper.querySelectorAll('path');
   caminhos.forEach(caminho => {
@@ -56,40 +48,34 @@ function configurarInteracoesMapa() {
 }
 
 function selecionarMunicipio(id, caminhos = dom.wrapper.querySelectorAll('path')) {
-  // Destaque no mapa
+
   caminhos.forEach(c => c.classList.remove('municipio-ativo'));
   const caminho = dom.wrapper.querySelector(`path[id="${id}"]`);
   if (caminho) caminho.classList.add('municipio-ativo');
   municipioAtivo = id;
 
-  // Dados da cidade
   const municipio = todosMunicipios.find(m => m.id == id);
   if (!municipio) return;
 
-  const nome  = municipio.nome;
-  const meso  = municipio.microrregiao?.mesorregiao?.nome || 'Bahia';
+  const nome = municipio.nome;
+  const meso = municipio.microrregiao?.mesorregiao?.nome || 'Bahia';
 
-  // Esconde estado vazio, mostra card
   dom.estadoVazio.classList.add('oculto');
   dom.detalhes.classList.remove('oculto');
 
-  dom.nome.textContent    = nome;
-  dom.regiao.textContent  = meso;
+  dom.nome.textContent = nome;
+  dom.regiao.textContent = meso;
   dom.cultura.textContent = `Clique no botão abaixo para ver a história, cultura e galeria de imagens de ${nome}.`;
 
-  // Botão → abre página do município na mesma aba
   dom.btnCompleta.onclick = () => {
     const nomeFormatado = nome
       .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
       .replace(/\s+/g, '-');
-      
-    // Abre a página na mesma guia!
+
     window.location.href = `municipios/${nomeFormatado}.html`;
   };
 }
-
-// --- 5. Barra de pesquisa ---
 dom.pesquisa.addEventListener('input', e => {
   const termo = e.target.value.trim().toLowerCase();
   if (termo.length < 2) return (dom.sugestoes.style.display = 'none');
@@ -106,7 +92,7 @@ dom.pesquisa.addEventListener('input', e => {
     li.innerHTML = `${mun.nome} <span>${mun.microrregiao?.mesorregiao?.nome || ''}</span>`;
     li.onclick = () => {
       selecionarMunicipio(mun.id);
-      dom.pesquisa.value         = mun.nome;
+      dom.pesquisa.value = mun.nome;
       dom.sugestoes.style.display = 'none';
     };
     dom.sugestoes.appendChild(li);
